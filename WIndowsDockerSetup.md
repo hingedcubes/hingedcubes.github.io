@@ -5,14 +5,14 @@ Docker 설치가이드
 winver.exe로 확인
 
 ``` powershell
-# 관리자 쉘 실행
+# 관리자 쉘([윈도우키]–[X키] > [A키]) 실행
 dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
 dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
 Invoke-WebRequest https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi -o $env:USERPROFILE\Downloads\wsl_update_x64.msi
 msiexec.exe /i $env:USERPROFILE\Downloads\wsl_update_x64.msi /qn /norestart
 Restart-Computer -Force
 
-# 관리자 쉘 실행
+# 관리자 쉘([윈도우키]–[X키] > [A키]) 실행
 https://www.microsoft.com/store/productId/9NBLGGH4MSV6
 wsl --set-default-version 2
 wsl -l --all
