@@ -1,0 +1,47 @@
+version: "3.9"
+services:
+
+  influxdb:
+    image: quay.io/influxdb/influxdb:v2.0.3
+    container_name: influxdb
+    ports:
+      - "8086:8086"
+    restart: always
+    #env_file:
+      #- 'env.influxdb'
+    volumes:
+      - influxdb-volume:/root/.influxdbv2
+    networks:
+      - monitoring_network
+
+  servermicroservice:
+    image: 7f7dfd0b-kr1-registry.container.cloud.toast.com/servermicroservice:latest
+    container_name: servermicroservice
+    links:
+      - influxdb
+    networks:
+      - monitoring_network
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    restart: always
+    env_file:
+      - 'env.grafana'
+    user: "0"
+    links:
+      - influxdb
+    volumes:
+      - grafana-volume:/var/lib/grafana
+    networks:
+      - monitoring_network
+
+networks:
+  monitoring_network:
+volumes:
+  grafana-volume:
+    external: true
+  influxdb-volume:
+    external: true
