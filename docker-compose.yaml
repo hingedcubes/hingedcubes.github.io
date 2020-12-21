@@ -15,8 +15,11 @@ services:
       - monitoring_network
 
   servermicroservice:
-    image: 7f7dfd0b-kr1-registry.container.cloud.toast.com/servermicroservice:latest
+    image: ararion/servermicroservice:latest
     container_name: servermicroservice
+    ports:
+      - "80:80"
+      - "8086:8086"
     links:
       - influxdb
     networks:
